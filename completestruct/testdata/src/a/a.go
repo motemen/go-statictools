@@ -21,34 +21,22 @@ func func1() {
 		C: 3,
 	}
 
-	// +test
-	// name=Foo
-	// fields=A,B,C
-	g := Foo{}
+	g := Foo{} // want `struct fields missing in Foo{} literal: A, B, C`
 
-	// +test
-	// name=Foo
-	// fields=B,C
-	h := Foo{
+	h := Foo{ // want `struct fields missing in Foo{} literal: B, C`
 		A: 1,
 	}
 
 	_, _, _ = f, g, h
 
-	// +test
-	// name=Bar
-	// fields=X
-	x := Bar{
+	x := Bar{ // want `struct fields missing in Bar{} literal: X`
 		Foo: &Foo{
 			A: 1, B: 2, C: 3,
 		},
 	}
 
 	y := Bar{
-		// +test
-		// name=Foo
-		// fields=A
-		Foo: &Foo{
+		Foo: &Foo{ // want `struct fields missing in Foo{} literal: A`
 			B: 2, C: 3,
 		},
 		X: true,
